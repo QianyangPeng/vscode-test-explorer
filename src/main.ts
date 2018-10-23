@@ -24,6 +24,8 @@ export function activate(context: vscode.ExtensionContext): ITestHub {
 
 	registerCommand('test-explorer.run', (...nodes) => testExplorer.run(nodes));
 
+	registerCommand('test-explorer.run-selected', () => testExplorer.runSelectedTests());
+
 	registerCommand('test-explorer.run-file', (file?: string) => runTestsInFile(file, testExplorer));
 
 	registerCommand('test-explorer.run-test-at-cursor', () => runTestAtCursor(testExplorer));

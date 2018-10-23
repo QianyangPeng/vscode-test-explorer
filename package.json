@@ -36,6 +36,7 @@
   "dependencies": {
     "escape-string-regexp": "^1.0.5",
     "fs-extra": "^7.0.0",
+    "tsc": "^1.20150623.0",
     "tslib": "^1.9.3",
     "vscode-test-adapter-api": "^1.1.0"
   },
@@ -149,6 +150,11 @@
         }
       },
       {
+        "command": "test-explorer.run-selected",
+        "title": "Test Explorer: Run selected tests",
+        "icon": "./icons/start-selected.svg"
+      },
+      {
         "command": "test-explorer.run-file",
         "title": "Test Explorer: Run tests in current file"
       },
@@ -210,13 +216,18 @@
           "when": "view == test-explorer && !testsRunning"
         },
         {
-          "command": "test-explorer.cancel",
+          "command": "test-explorer.run-selected",
           "group": "navigation@2",
+          "when": "view == test-explorer && !testsRunning"
+        },
+        {
+          "command": "test-explorer.cancel",
+          "group": "navigation@3",
           "when": "view == test-explorer && testsRunning"
         },
         {
           "command": "test-explorer.reload",
-          "group": "navigation@3",
+          "group": "navigation@4",
           "when": "view == test-explorer && !testsLoading"
         },
         {
@@ -313,6 +324,10 @@
         },
         {
           "command": "test-explorer.run",
+          "when": "false"
+        },
+        {
+          "command": "test-explorer.run-selected",
           "when": "false"
         },
         {

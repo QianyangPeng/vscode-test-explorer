@@ -17,6 +17,7 @@ export class StateDecorationTypes {
 	readonly passedFaintAutorun: vscode.TextEditorDecorationType;
 	readonly failedFaintAutorun: vscode.TextEditorDecorationType;
 	readonly skipped: vscode.TextEditorDecorationType;
+	readonly selected: vscode.TextEditorDecorationType;
 
 	readonly all: vscode.TextEditorDecorationType[];
 
@@ -38,11 +39,12 @@ export class StateDecorationTypes {
 		this.passedFaintAutorun = toDecorationType(iconPaths.passedFaintAutorun);
 		this.failedFaintAutorun = toDecorationType(iconPaths.failedFaintAutorun);
 		this.skipped = toDecorationType(iconPaths.skipped);
+		this.selected = toDecorationType(iconPaths.selected);
 
 		this.all = [
 			this.pending, this.pendingAutorun, this.scheduled, this.running, this.runningFailed,
 			this.passed, this.failed, this.passedFaint, this.failedFaint, this.passedAutorun,
-			this.failedAutorun, this.passedFaintAutorun, this.failedFaintAutorun, this.skipped
+			this.failedAutorun, this.passedFaintAutorun, this.failedFaintAutorun, this.skipped, this.selected
 		];
 
 		for (const decorationType of this.all) {

@@ -145,4 +145,15 @@ export class TestNode implements TreeNode {
 
 		return treeItem;
 	}
+
+	selectNode(){
+		this._state.current = 'selected';
+		this._state.previous = 'selected';
+		this.neededUpdates = 'send';
+		this._decorations = [];
+		if (this.parent) {
+			this.parent.neededUpdates = 'recalc';
+		}
+		this.collection.sendNodeChangedEvents();
+	}
 }

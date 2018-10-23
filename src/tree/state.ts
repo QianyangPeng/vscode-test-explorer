@@ -1,8 +1,8 @@
 import { TreeNode } from './treeNode';
 
-export type CurrentNodeState = 'pending' | 'scheduled' | 'running' | 'passed' | 'failed' | 'running-failed' | 'skipped';
+export type CurrentNodeState = 'pending' | 'scheduled' | 'running' | 'passed' | 'failed' | 'running-failed' | 'skipped' | 'selected';
 
-export type PreviousNodeState = 'pending' | 'passed' | 'failed' | 'skipped';
+export type PreviousNodeState = 'pending' | 'passed' | 'failed' | 'skipped' | 'selected';
 
 export interface NodeState {
 	current: CurrentNodeState,
@@ -76,6 +76,10 @@ export function parentCurrentNodeState(children: TreeNode[]): CurrentNodeState {
 
 		return 'pending';
 
+	} else if (children.some((child) => (child.state.current === 'selected'))) {
+
+		return 'selected';
+
 	} else {
 
 		return 'passed';
@@ -101,6 +105,10 @@ export function parentPreviousNodeState(children: TreeNode[]): PreviousNodeState
 
 		return 'pending';
 
+	} else if (children.some((child) => (child.state.previous === 'selected'))) {
+
+		return 'selected';
+
 	} else {
 
 		return 'passed';
@@ -113,8 +121,7 @@ export function parentAutorunFlag(children: TreeNode[]): boolean {
 }
 
 export type StateIconType = 'pending' | 'pendingAutorun' | 'scheduled' | 'running' |
-	'runningFailed' | 'passed' | 'passedAutorun' | 'failed' | 'failedAutorun' | 'skipped' |
-	'passedFaint' | 'passedFaintAutorun' | 'failedFaint' | 'failedFaintAutorun';
+	'runningFailed' | 'passed' | 'passedAutorun' | 'failed' | 'failedAutorun' | 'skipped' | 'selected' | 'passedFaint' | 'passedFaintAutorun' | 'failedFaint' | 'failedFaintAutorun';
 
 export function stateIcon(state: NodeState): StateIconType {
 
@@ -143,6 +150,10 @@ export function stateIcon(state: NodeState): StateIconType {
 		case 'skipped':
 
 			return 'skipped';
+
+		case 'selected':
+
+			return 'selected';
 
 		default:
 

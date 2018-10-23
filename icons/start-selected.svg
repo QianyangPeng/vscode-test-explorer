@@ -1,0 +1,6 @@
+<svg height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path d="M2,2 L14,8 L2,14 X" style="fill: #cccccc"/>
+    <text x="3.1" y="12.7" textLength="15" fill="rgb(255, 0, 0)" font-size="15">
+        S
+    </text>
+</svg>

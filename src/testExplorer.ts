@@ -108,12 +108,36 @@ export class TestExplorer implements TestController, vscode.TreeDataProvider<Tre
 			if (node) {
 				node.collection.adapter.run([ node.info.id ]);
 			}
-
+			this.selectTests();
 		} else {
-
 			for (const collection of this.collections) {
 				if (collection.suite) {
 					collection.adapter.run([ collection.suite.info.id ]);
+				}
+			}
+		}
+	}
+	
+	async runSelectedTests(): Promise<void> {
+		for (const collection of this.collections) {
+			if (collection.suite) {
+				for (const child of collection.suite.children) {
+					if (child.state.current === 'selected'){
+						collection.adapter.run([ child.info.id ]);
+					}
+				}
+			}
+		}
+	}
+	
+	async selectTests(): Promise<void> {
+		for (const collection of this.collections) {
+			if (collection.suite) {
+				for (const child of collection.suite.children) {
+					if (typeof(child.info.file)=="string" && child.info.file.includes('array')){
+						console.log(child.info.label)
+						child.selectNode();
+					}
 				}
 			}
 		}

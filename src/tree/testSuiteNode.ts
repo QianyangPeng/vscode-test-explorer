@@ -118,4 +118,11 @@ export class TestSuiteNode implements TreeNode {
 
 		return treeItem;
 	}
+
+	selectNode(){
+		for (const child of this.children) {
+			child.selectNode();
+		}
+		this.neededUpdates = 'recalc';
+	}
 }

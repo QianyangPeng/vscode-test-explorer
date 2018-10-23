@@ -6,6 +6,7 @@ import { TestExplorer } from '../testExplorer';
 import { TreeNode } from './treeNode';
 import { ErrorNode } from './errorNode';
 import { allTests, createRunCodeLens, createDebugCodeLens } from '../util';
+import { buildDatabase } from '../extra/buildDatabase';
 
 export class TestCollection {
 
@@ -20,6 +21,9 @@ export class TestCollection {
 	private readonly locatedNodes = new Map<string, Map<number, TreeNode[]>>();
 	private readonly codeLenses = new Map<string, vscode.CodeLens[]>();
 	private collectionChangedWhileRunning = false;
+
+	private testFiles: Set<string> = new Set();
+	private testDatabase: { [key: string]: string; };
 
 	get suite() { return this.rootSuite; }
 	get error() { return this.errorNode; }
@@ -104,6 +108,16 @@ export class TestCollection {
 			this.explorer.decorator.updateDecorationsNow();
 
 			this.explorer.treeEvents.sendTreeChangedEvent();
+
+			if (this.rootSuite){
+				for (const child of this.rootSuite.children) {
+					if (typeof(child.info.file)=="string"){
+						this.testFiles.add(child.info.file)
+					}
+				}
+				this.testDatabase = buildDatabase(Array.from(this.testFiles))
+				console.log(this.testDatabase)
+			}
 		}
 	}
 
