@@ -108,7 +108,6 @@ export class TestExplorer implements TestController, vscode.TreeDataProvider<Tre
 			if (node) {
 				node.collection.adapter.run([ node.info.id ]);
 			}
-			this.selectTests();
 		} else {
 			for (const collection of this.collections) {
 				if (collection.suite) {
@@ -130,15 +129,10 @@ export class TestExplorer implements TestController, vscode.TreeDataProvider<Tre
 		}
 	}
 	
-	async selectTests(): Promise<void> {
+	async updateSelect(file: string): Promise<void> {
 		for (const collection of this.collections) {
 			if (collection.suite) {
-				for (const child of collection.suite.children) {
-					if (typeof(child.info.file)=="string" && child.info.file.includes('array')){
-						console.log(child.info.label)
-						child.selectNode();
-					}
-				}
+				collection.updateSelect(file)
 			}
 		}
 	}

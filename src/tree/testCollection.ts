@@ -6,7 +6,7 @@ import { TestExplorer } from '../testExplorer';
 import { TreeNode } from './treeNode';
 import { ErrorNode } from './errorNode';
 import { allTests, createRunCodeLens, createDebugCodeLens } from '../util';
-import { buildDatabase } from '../extra/buildDatabase';
+import { buildDatabase, bestTestFile } from '../extra/helperMethods';
 
 export class TestCollection {
 
@@ -116,7 +116,24 @@ export class TestCollection {
 					}
 				}
 				this.testDatabase = buildDatabase(Array.from(this.testFiles))
-				console.log(this.testDatabase)
+				console.log(this.testDatabase.key.length)
+			}
+		}
+	}
+
+	async updateSelect(file: string): Promise<void> {
+		if (this.testDatabase) {
+			let chosenTestFile = bestTestFile(file, this.testDatabase)
+			this.selectTests(chosenTestFile)
+		}
+	}
+
+	async selectTests(testFilename: string): Promise<void> {
+		if (this.suite) {
+			for (const child of this.suite.children) {
+				if (typeof(child.info.file)=="string" && child.info.file == testFilename){
+					child.selectNode();
+				}
 			}
 		}
 	}

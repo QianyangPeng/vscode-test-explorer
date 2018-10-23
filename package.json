@@ -34,6 +34,7 @@
     "publish": "vsce publish"
   },
   "dependencies": {
+    "doc-similarity": "0.0.1",
     "escape-string-regexp": "^1.0.5",
     "fs-extra": "^7.0.0",
     "tsc": "^1.20150623.0",

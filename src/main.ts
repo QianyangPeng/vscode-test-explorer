@@ -53,6 +53,8 @@ export function activate(context: vscode.ExtensionContext): ITestHub {
 	const documentSelector = { pattern: '**/*' };
 	context.subscriptions.push(vscode.languages.registerCodeLensProvider(documentSelector, testExplorer));
 
+	vscode.workspace.onDidSaveTextDocument(function(e: vscode.TextDocument) { testExplorer.updateSelect(e.fileName); }, undefined);
+
 	return {
 		registerAdapter: adapter => hub.registerAdapter(adapter),
 		unregisterAdapter: adapter => hub.unregisterAdapter(adapter),
